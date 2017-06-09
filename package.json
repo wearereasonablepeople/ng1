@@ -1,14 +1,14 @@
 {
   "name": "ng1",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Angular 1 cli tool",
   "main": "./bin/ng1.js",
   "bin": {
-    "ng1": "./bin/ng1.js"
+    "ng1": "./lib/bin/ng1.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
+    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib --ignore recipes && cp -r src/recipes lib/recipes",
     "ng1": "ng1"
   },
   "repository": {

@@ -6,5 +6,5 @@ const cmd = `gulp ${process.argv.slice(2).join(' ')}`;
 const colors = require('colors');
 
 console.log('Welcome to ng1, made for the masters, by the masters'.underline.red);
-const stdout = execSync(cmd, {cwd: path.join(process.cwd()), stdio: 'inherit'});
+const stdout = execSync(cmd, {cwd: path.join(__dirname), stdio: 'inherit'});
 console.log('Thank you for using ng1, made for the masters, by the masters'.underline.red);
