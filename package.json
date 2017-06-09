@@ -1,25 +1,29 @@
 {
-  "name": "ng-cli",
+  "name": "ng1",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "ng-cli": "ng-cli"
-  },
-  "author": "",
-  "license": "ISC",
+  "description": "Angular 1 cli tool",
+  "main": "./bin/ng1.js",
   "bin": {
-    "ng-cli": "./bin/ng-cli.js"
+    "ng1": "./bin/ng1.js"
   },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib",
+    "ng1": "ng1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wearereasonablepeople/ng1.git"
+  },
+  "author": "Eric Nijman & Piotr Gawlowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wearereasonablepeople/ng1/issues"
+  },
+  "homepage": "https://github.com/wearereasonablepeople/ng1",
   "dependencies": {
-    "babel-loader": "^6.2.10",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-polyfill": "^6.20.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.18.0",
-    "babel-runtime": "^6.20.0",
     "colors": "^1.1.2",
+    "fs": "0.0.1-security",
     "gulp": "^3.9.1",
     "gulp-change": "^1.0.0",
     "gulp-rename": "^1.2.2",
@@ -27,11 +31,24 @@
     "gulp-util": "^3.0.8",
     "interpret": "^1.0.1",
     "liftoff": "^2.3.0",
+    "lodash-es": "^4.17.4",
     "minimist": "^1.2.0",
     "path": "^0.12.7",
     "run-sequence": "^1.2.2",
     "v8flags": "^2.0.11",
     "webpack": "^1.14.0",
-    "yargs": "^6.6.0"
+    "yargs": "^6.6.0",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.20.0",
+    "babel-register": "^6.18.0",
+    "babel-runtime": "^6.20.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0"
   }
 }

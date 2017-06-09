@@ -1,0 +1,6 @@
+@import "<%= scssPath %>core/constants";
+@import "<%= scssPath %>core/mixins";
+
+<%= nameKebabCase %> {
+  display: block;
+}

@@ -1,16 +1,17 @@
-List of ideas/todos
+#Ng1
 
-Generate project
-Import plugins/components (import some git repo into project by npm install and automatically add to dependencies?)
+Command line tool to use in combination with [ng-webpack-seed](https://github.com/piotr-gawlowski/ng-webpack-seed)
 
-Create service
-Create constant
-Create factory
-Create route (add to states.js file too)
-^ Check for duplicates
+## Generators
 
+`ng1 component --name yourComponent`
 
+`ng1 constant --name yourConstant`
 
-List of ideas for plugins
+`ng1 factory --name yourFactory`
 
-Make app offline capable automatically (interceptor that handles caching?)
+`ng1 route --name yourRoute`
+
+`ng1 service --name YourService`
+
+Generators will create new files/folders in appropriate place. They will also handle imports.

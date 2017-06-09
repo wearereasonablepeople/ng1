@@ -1,0 +1,12 @@
+{
+  "extends": ["warp/node", "warp/es6"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "indent": [2, 2, {"MemberExpression": 1, "SwitchCase": 1}],
+    "max-len": [2, {"code": 150}],
+    "newline-before-return": ["off"]
+  }
+}

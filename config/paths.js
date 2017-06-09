@@ -1,35 +1,41 @@
 const path = require('path');
-const root = 'client';
+const {times} = require('lodash');
 
-const resolveToApp = (glob = '') => path.join(root, 'app', glob);
-const resolveToRoutes = (glob = '') => path.join(root, 'app/routes', glob);
-const resolveToComponents = (glob = '') => path.join(root, 'app/components', glob);
-const resolveToServices = (glob = '') => path.join(root, 'app/services', glob);
+//source code folder
+const root = `${process.cwd()}/client`;
 
-console.log(__dirname, process.cwd());
+// helper methods for resolving paths
+const pathTypes = {
+  app: 'app',
+  components: 'app/components',
+  constants: 'app/constants',
+  factories: 'app/factories',
+  routes: 'app/routes',
+  services: 'app/services'
+};
+const resolvePath = (type, glob = '') => path.join(root, pathTypes[type], glob);
 
-// Map of all paths
+// map of all paths
 const paths = {
-  js: resolveToComponents('**/*!(.spec.js).js'), // exclude spec files
-  styl: resolveToApp('**/*.scss'), // stylesheets
+  js: resolvePath('components', '**/*!(.spec.js).js'),
+  styl: resolvePath('app', '**/*.scss'),
   html: [
-    resolveToApp('**/*.html'),
+    resolvePath('app', '**/*.html'),
     path.join(root, 'index.html')
   ],
   entry: [
     'babel-polyfill',
-    path.join(__dirname, root, 'app/app.js')
+    path.join(root, 'app/app.js')
   ],
   output: root,
-  blankComponent: path.join(__dirname, 'generator', 'component/**/*.**'),
-  blankService: path.join(__dirname, 'generator', 'service/**/*.**'),
-  dest: path.join(__dirname, 'dist')
+  blank: type => path.join(__dirname, 'recipes', `${type}/**/*.**`)
 };
 
+//Generate path for scss files
+const getRootLevel = string => times(string.split('/').length - 1, '').join('../');
+
 module.exports = {
-  paths, 
-  resolveToApp,
-  resolveToRoutes,
-  resolveToComponents,
-  resolveToServices,
+  paths,
+  resolvePath,
+  getRootLevel,
 };
