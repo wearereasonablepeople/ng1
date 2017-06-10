@@ -8,7 +8,7 @@ const {last, kebabCase, camelCase, capitalize} = require('lodash');
 const {paths, resolvePath, getRootLevel} = require('../config/paths');
 
 //Create imports for generated modules
-const modulize = (content, moduleGroup, module) => {
+const modulize = (content, moduleGroup, module, argvName) => {
 
   const s = content.indexOf('//IMPORTS') + '//IMPORTS'.length;
   const e = content.indexOf(']);');
@@ -16,14 +16,18 @@ const modulize = (content, moduleGroup, module) => {
   const end = content.substring(e);
   const previous = content.substring(s, e);
 
-  const imports = `\nimport './${yargs.argv.name}${module ? `/${module}` : ''}';`;
-  const moduleDef = `  'app.${moduleGroup}.${camelCase(module) || camelCase(yargs.argv.name)}',`;
+  const imports = `\nimport './${argvName}${module ? `/${module}` : ''}';`;
+  const moduleDef = `  'app.${moduleGroup}.${camelCase(module) || camelCase(argvName)}',`;
 
   return `${start + imports + previous + moduleDef}\n${end}`;
 };
 
 const recipe = type => () => {
-  const proto = yargs.argv.name.split('/');
+  if(!yargs.argv.name && !yargs.argv.n) {
+    return console.log('Argument \'name\' or \'n\' must be provided!');
+  }
+  const argvName = yargs.argv.name || yargs.argv.n;
+  const proto = argvName.split('/');
   const name = last(proto);
   const typed = type !== 'factory' ? `${type}s` : 'factories';
   const noFolder = ['service', 'factory', 'constant'];
@@ -31,7 +35,7 @@ const recipe = type => () => {
   const scssPath = getRootLevel(`${resolvePath(typed)}/${proto.join('/')}`);
 
   gulp.src(path.join(resolvePath(typed), 'index.js'), {base: './'})
-    .pipe(change(content => modulize(content, typed, (!noFolder.includes(type) ? name : null))))
+    .pipe(change(content => modulize(content, typed, (!noFolder.includes(type) ? name : null), argvName)))
     .pipe(gulp.dest('./'));
 
   return gulp.src(paths.blank(type))
@@ -46,7 +50,7 @@ const recipe = type => () => {
     .pipe(rename(path => {
       path.basename = path.basename.replace('temp', name);
     }))
-    .pipe(gulp.dest(destPath));
+    .pipe(gulp.dest(destPath, {cwd: yargs.argv.gulpEnv}));
 };
 
 module.exports = {

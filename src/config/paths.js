@@ -1,10 +1,11 @@
 const path = require('path');
+const yargs = require('yargs');
 const {times} = require('lodash');
 
-//source code folder
-const root = `${process.cwd()}/client`;
+// Source code folder
+const root = `${yargs.argv.gulpEnv}/client`;
 
-// helper methods for resolving paths
+// Helper methods for resolving paths
 const pathTypes = {
   app: 'app',
   components: 'app/components',
@@ -15,7 +16,7 @@ const pathTypes = {
 };
 const resolvePath = (type, glob = '') => path.join(root, pathTypes[type], glob);
 
-// map of all paths
+// Map of all paths
 const paths = {
   js: resolvePath('components', '**/*!(.spec.js).js'),
   styl: resolvePath('app', '**/*.scss'),
@@ -28,10 +29,10 @@ const paths = {
     path.join(root, 'app/app.js')
   ],
   output: root,
-  blank: type => path.join(__dirname, 'recipes', `${type}/**/*.**`)
+  blank: type => path.join(__dirname, '..', 'recipes', `${type}/**/*.**`)
 };
 
-//Generate path for scss files
+// Generate path for scss files
 const getRootLevel = string => times(string.split('/').length - 1, '').join('../');
 
 module.exports = {
