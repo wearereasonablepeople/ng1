@@ -4,6 +4,7 @@ const path = require('path');
 const rename = require('gulp-rename');
 const template = require('gulp-template');
 const change = require('gulp-change');
+const chalk = require('chalk');
 const {last, kebabCase, camelCase, capitalize} = require('lodash');
 const {paths, resolvePath, getRootLevel} = require('../config/paths');
 
@@ -24,7 +25,7 @@ const modulize = (content, moduleGroup, module, argvName) => {
 
 const recipe = type => () => {
   if(!yargs.argv.name && !yargs.argv.n) {
-    return console.log('Argument \'name\' or \'n\' must be provided!');
+    return console.log(chalk.red.bold('Argument \'--name\' or \'-n\' must be provided!'));
   }
   const argvName = yargs.argv.name || yargs.argv.n;
   const proto = argvName.split('/');
