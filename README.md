@@ -1,4 +1,4 @@
-#Ng1
+# ng1
 
 Command line tool to use in combination with [ng-webpack-seed](https://github.com/piotr-gawlowski/ng-webpack-seed)
 
