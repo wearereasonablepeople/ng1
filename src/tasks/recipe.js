@@ -22,6 +22,15 @@ const modulize = (content, moduleGroup, module, argvName) => {
   return `${start + imports + previous + moduleDef}\n${end}`;
 };
 
+
+//if we allow names starting with capital letter (Service) we cannot truly use camelCase
+const resolveCamelCase = string => {
+  const camelC = camelCase(string);
+  return string[0] !== camelC[0]
+    ? `${string[0]}${camelC.substr(1)}`
+    : camelC;
+}
+
 const recipe = type => () => {
   if(!yargs.argv.name && !yargs.argv.n) {
     return console.log('Argument \'name\' or \'n\' must be provided!');
@@ -42,7 +51,7 @@ const recipe = type => () => {
     .pipe(template({
       name: name,
       nameKebabCase: kebabCase(name),
-      nameCamelCase: camelCase(name),
+      nameCamelCase: resolveCamelCase(name),
       scssPath: scssPath,
       APP: `app.${typed}`,
       upCaseName: capitalize(name)
