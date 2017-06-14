@@ -33,10 +33,11 @@ const paths = {
 };
 
 // Generate path for scss files
-const getRootLevel = string => times(string.split('/').length - 1, '').join('../');
+const getAppRoot = string => string.substr(string.indexOf(pathTypes.app));
+const getRootLevel = string => times(getAppRoot(string).split('/').length, '').join('../');
 
 module.exports = {
   paths,
   resolvePath,
-  getRootLevel,
+  getRootLevel
 };
