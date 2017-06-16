@@ -1,6 +1,6 @@
 {
   "name": "ng1",
-  "version": "1.0.5",
+  "version": "1.1.1",
   "description": "Angular 1 cli tool",
   "main": "./bin/ng1.js",
   "bin": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "babel src --out-dir lib --ignore recipes && cp -r src/recipes lib/recipes",
+    "prepublish": "babel src --out-dir lib",
     "ng1": "ng1"
   },
   "repository": {
@@ -36,8 +36,10 @@
     "liftoff": "^2.3.0",
     "lodash": "^4.17.4",
     "minimist": "^1.2.0",
+    "moment": "^2.18.1",
     "path": "^0.12.7",
     "run-sequence": "^1.2.2",
+    "stream-series": "^0.1.1",
     "v8flags": "^2.0.11",
     "webpack": "^1.14.0",
     "yargs": "^6.6.0"

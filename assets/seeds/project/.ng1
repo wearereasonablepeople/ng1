@@ -1,0 +1,10 @@
+module.exports = [
+  {task: 'recipe', type: 'route', name: 'dashboard'},
+  {task: 'plugin', type: 'constant', name: 'endpoint'},
+  {task: 'plugin', type: 'factory', name: 'bodyCleaningInterceptor'},
+  {task: 'plugin', type: 'factory', name: 'endpointInterceptor'},
+  {task: 'plugin', type: 'core', name: '_constants'},
+  {task: 'plugin', type: 'core', name: '_mixins'},
+  {task: 'plugin', type: 'core', name: '_text'},
+  {task: 'plugin', type: 'app', name: 'app'},
+];

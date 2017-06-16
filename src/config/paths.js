@@ -10,6 +10,7 @@ const pathTypes = {
   app: 'app',
   components: 'app/components',
   constants: 'app/constants',
+  core: 'app/core',
   factories: 'app/factories',
   routes: 'app/routes',
   services: 'app/services'
@@ -29,15 +30,20 @@ const paths = {
     path.join(root, 'app/app.js')
   ],
   output: root,
-  blank: type => path.join(__dirname, '..', 'recipes', `${type}/**/*.**`)
+  blank: type => path.join(__dirname, '../..', 'assets/recipes', `${type}/**/*.**`),
+  plugin: type => path.join(__dirname, '../..', 'assets/plugins', type)
 };
 
 // Generate path for scss files
 const getAppRoot = string => string.substr(string.indexOf(pathTypes.app));
 const getRootLevel = string => times(getAppRoot(string).split('/').length, '').join('../');
 
+// Path for seed files
+const seedRoot = path.join(__dirname, '../..', 'assets/seeds');
+
 module.exports = {
   paths,
   resolvePath,
-  getRootLevel
+  getRootLevel,
+  seedRoot
 };

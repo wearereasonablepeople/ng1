@@ -1,0 +1,17 @@
+@import "./mixins";
+@import "./constants";
+
+input:-webkit-autofill {
+  background-color: #fff;
+}
+
+//selection
+::selection {
+  background: $blue-universal;
+  color: #fff;
+}
+
+::-moz-selection {
+  background: $blue-universal;
+  color: #fff;
+}

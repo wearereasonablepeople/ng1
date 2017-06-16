@@ -2,15 +2,22 @@
 
 const {execSync} = require('child_process');
 const path = require('path');
+const chalk = require('chalk');
 const pkg = require('../../package.json');
 const yargs = require('yargs');
-const cmd = `gulp ${process.argv.slice(2).join(' ')} --gulpEnv ${process.cwd()}`;
-const chalk = require('chalk');
+const log = require('../utils/log');
+const {randomStart, randomEnd} = require('../utils/quotes');
+const moment = require('moment');
+
+// Remove '--silent' flag to debug/log errors
+const cmd = `gulp ${process.argv.slice(2).join(' ')} --gulpEnv "${process.cwd()}" ${yargs.argv.verbose ? '' : '--silent'}`;
 
 if(yargs.argv.v || yargs.argv.version) {
-	console.log(pkg.version);
+  console.log(pkg.version);
 } else {
-	console.log(chalk.blue.bold('Welcome to ng1, made for the masters, by the masters'));
-	const stdout = execSync(cmd, {cwd: path.join(__dirname), stdio: 'inherit'});
-	console.log(chalk.blue.bold('Thank you for using ng1, made for the masters, by the masters'));
+  const before = moment.utc().valueOf();
+  log.top(randomStart());
+  execSync(cmd, {cwd: path.join(__dirname), stdio: 'inherit'});
+  const after = moment.utc().valueOf();
+  log.top(randomEnd(), chalk.grey(`after ${after - before}ms`));
 }
