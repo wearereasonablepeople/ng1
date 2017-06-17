@@ -25,13 +25,11 @@ const awaitStream = stream => new Promise((res, rej) => {
   stream.once('error', rej);
 });
 
-const fillSeed = async () => {
+const fillSeed = cb => {
   const ng1 = require(`${seedRoot}/project/.ng1`);
-  try {
-    await ng1.reduce((p, {task, type, name}) => p.then(_ => awaitStream(taskTypes[task](type)(name))), Promise.resolve());
-  } catch(e) {
-    log.error(e.stack);
-  }
+  ng1.reduce((p, {task, type, name}) => p.then(_ => awaitStream(taskTypes[task](type)(name))), Promise.resolve())
+    .then(cb)
+    .catch(log.error);
 };
 
 module.exports = {
