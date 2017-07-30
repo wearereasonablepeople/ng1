@@ -1,14 +1,12 @@
 const gulp = require('gulp');
 const yargs = require('yargs');
 const path = require('path');
-const chalk = require('chalk');
 const rename = require('gulp-rename');
 const template = require('gulp-template');
 const change = require('gulp-change');
-const log = require('../utils/log');
 const streamqueue = require('stream-series');
-const {last, kebabCase, camelCase, capitalize, isString} = require('lodash');
-const {paths, resolvePath, getRootLevel} = require('../config/paths');
+const {kebabCase, camelCase, capitalize} = require('lodash');
+const {paths, resolvePath, getSourcePaths} = require('../config/paths');
 
 //Create imports for generated modules
 const modulize = (content, moduleGroup, module, argvName) => {
@@ -34,19 +32,7 @@ const resolveCamelCase = string => {
 };
 
 const recipe = type => defName => {
-  if(!yargs.argv.name && !yargs.argv.n && !isString(defName)) {
-    return log.error('Argument \'--name\' or \'-n\' must be provided!');
-  }
-  const argvName = isString(defName)
-    ? defName
-    : yargs.argv.name || yargs.argv.n;
-  log.info(`Adding ${chalk.cyan(type)} with name ${chalk.cyan(argvName)}`);
-  const proto = argvName.split('/');
-  const name = last(proto);
-  const typed = type !== 'factory' ? `${type}s` : 'factories';
-  const noFolder = ['service', 'factory', 'constant'];
-  const destPath = path.join(resolvePath(typed), (!noFolder.includes(type) ? proto : proto.slice(0, proto.length - 1)).join('/'));
-  const scssPath = getRootLevel(`${resolvePath(typed)}/${proto.join('/')}`);
+  const {name, destPath, scssPath, typed, noFolder, argvName} = getSourcePaths(type, defName);
 
   const index = gulp.src(path.join(resolvePath(typed), 'index.js'), {base: './'})
     .pipe(change(content => modulize(content, typed, (!noFolder.includes(type) ? name : null), argvName)))
