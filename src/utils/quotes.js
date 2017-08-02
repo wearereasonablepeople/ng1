@@ -1,4 +1,4 @@
-const {random} = require('lodash');
+const {sample} = require('lodash');
 
 const start = [
   'Ready to work.',
@@ -34,8 +34,8 @@ const end = [
   'Job\'s done!',
 ];
 
-const randomStart = () => start[random(start.length - 1)];
-const randomEnd = () => end[random(end.length - 1)];
+const randomStart = () => sample(start);
+const randomEnd = () => sample(end);
 
 module.exports = {
   start,
