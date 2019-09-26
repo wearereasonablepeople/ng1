@@ -1,3 +1,8 @@
+# DEPRECATED [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+This is no longer supported, please consider upgrade your Angular version instead.
+
+---
+
 # About
 This tool can generate templates and seeds for your Angular 1 projects.
 
